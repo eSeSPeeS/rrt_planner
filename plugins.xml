@@ -1,0 +1,11 @@
+<library path="rrt_planner">
+  <class name="rrt_planner/RRTPlanner"
+         type="rrt_planner::RRTPlanner"
+         base_class_type="nav2_core::GlobalPlanner">
+    <description>
+      RRT global planner plugin for Nav2.
+      Uses a Rapidly-exploring Random Tree to find a collision-free path
+      from start to goal inside the Nav2 costmap.
+    </description>
+  </class>
+</library>
