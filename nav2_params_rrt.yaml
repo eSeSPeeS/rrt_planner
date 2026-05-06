@@ -231,24 +231,31 @@ planner_server:
     GridBased:
       plugin: "rrt_planner/RRTPlanner"
       max_iterations: 5000
-      step_size: 0.05
+      step_size: 0.07
       goal_tolerance: 0.15
       goal_bias: 0.10
       collision_check_step: 0.02
-      # Margines bezpieczeżstwa od strefy inflacyjnej [0.0 - 1.0]
-      # 0.0 = tylko strefa INSCRIBED (domyslne)
-      # 0.3 = omijaj 30% strefy inflacyjnej
-      # 0.6 = sciezki wyraznie od scian (zalecane)
-      # 1.0 = tylko wolna przestrzen (moze nie znalezc sciezki!)
-      safety_margin: 0.3
+      # Parametr gamma dla RRT* (Near radius formula)
+      # Wiekszy = szersze sasiedztwo = lepsza optymalizacja ale wolniej
+      # Zalecane: 3.0 - 10.0  (domyslnie 5.0)
+      gamma_rrt_star: 5.0
+      # Maksymalny promien sasiedztwa Near [m]
+      # Domyslnie: 10 * step_size. Zbyt maly = rewiring nie dziala!
+      # (poprzedni blad: bylo przycinane do step_size = 0.07m)
+      max_near_radius: 0.40
+      # Iteracje rewiringu PO znalezieniu celu.
+      # 0 = stop od razu po znalezieniu
+      # 500 = 500 iteracji optymalizacji, potem robot jedzie
+      # Wiekszy = lepsza sciezka, dluzsze oczekiwanie przed jazda
+      post_goal_iterations: 2000
       node_scale: 0.03
       edge_scale: 0.01
       # Animacja drzewa RRT w RViz:
       # Publikuj drzewo co N dodanych węzłów (0 = tylko na końcu)
-      viz_publish_every_n: 10
+      viz_publish_every_n: 5
       # Czas oczekiwania między publikacjami [ms] (0 = brak delay)
       # Zwiększ jeśli animacja jest za szybka, np. 50 lub 100
-      viz_step_delay_ms: 20
+      viz_step_delay_ms: 40
       node_scale: 0.03        # rozmiar węzłów w RViz [m]
       edge_scale: 0.01        # grubość krawędzi w RViz [m]
 
