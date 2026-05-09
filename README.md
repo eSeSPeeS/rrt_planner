@@ -30,16 +30,18 @@ Implementacja **algorytmu** opisanego pseudokodem:
 ## Struktura paczki
 
 ```
-rrt_planner/
-├── include/rrt_planner/
-│   └── rrt_planner.hpp      # Plik nagłówkowy klasy
-├── src/
-│   └── rrt_planner.cpp      # Pełna implementacja RRT*
-├── CMakeLists.txt
-├── package.xml
-├── plugins.xml
-├── nav2_params_rrt.yaml     # Plik z parametrami Nav2
-└── start.sh                 # Skrypt uruchamiający symulację
+ros2_ws
+├── start.sh                         # Skrypt uruchamiający symulację
+└── src
+    └── rrt_planner/
+        ├── include/rrt_planner/
+        │   └── rrt_planner.hpp      # Plik nagłówkowy klasy
+        ├── src/
+        │   └── rrt_planner.cpp      # Pełna implementacja RRT*
+        ├── CMakeLists.txt
+        ├── package.xml
+        ├── plugins.xml
+        └── nav2_params_rrt.yaml     # Plik z parametrami Nav2
 ```
 
 ---
@@ -49,32 +51,32 @@ rrt_planner/
 ```bash
 # Umieść paczkę wraz z plikiem start.sh w swoim ROS 2 workspace
 cd ~/ros2_ws
-./start.sh            # włączenie z budowaniem paczki
-./start.sh --no-build # włączenie bez budowania paczki
+./start.sh            # uruchomienie z budowaniem paczki
+./start.sh --no-build # uruchomienie bez budowania paczki (brak zmian)
 
 # W przypadku problemów z uruchomieniem (nie włącza się RViz/Gazebo)
 # można spróbować przed wykonaniem start.sh uruchomić:
 # pkill -9 -f gazebo; pkill -9 -f gz; pkill -9 -f ros2; pkill -9 -f rviz
 ```
 
-Skrypt `start.sh` automatycznie wykrywa swoje położenie na dysku jako katalog workspace – nie wymaga edycji ścieżek przez użytkownika.
+Skrypt `start.sh` automatycznie wykrywa swoje położenie na dysku jako katalog workspace.
 
 ---
 
 ## Wizualizacja w RViz2
 
-Po uruchomieniu należy dodać topic z drzewem w RViz2:
+Po uruchomieniu można dodać topic z drzewem w RViZ:
 
 1. Kliknij **Add → By topic**
 2. Wybierz `/GridBased/rrt_tree` → **MarkerArray**
 3. Kliknij **OK**
 
-Drzewo pojawia się po zadaniu pierwszego celu. Wyświetlane są dwie warstwy:
+Drzewo pojawia się po zadaniu pierwszego celu.
 
 | Kolor | Co pokazuje |
 |-------|-------------|
-| 🔵 Niebieski | Pełne drzewo eksploracji RRT\* (wszystkie węzły i krawędzie) |
-| 🔴 Czerwony | Aktualna najlepsza ścieżka od startu do celu (aktualizuje się podczas rewiringu) |
+| 🔵 Niebieski | Pełne drzewo RRT\* (wszystkie węzły i krawędzie) |
+| 🔴 Czerwony | Aktualnie najlepsza ścieżka od startu do celu (aktualizuje się podczas rewiringu) |
 
 ---
 
