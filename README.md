@@ -108,19 +108,19 @@ Drzewo pojawia się po zadaniu pierwszego celu.
 
 ## Szczegóły algorytmu
 
-### RRT\* vs zwykły RRT
+### RRT vs RRT\*
 
 | | RRT | RRT\* |
 |---|---|---|
 | Łączy z | najbliższym węzłem | sąsiadem o najniższym koszcie w promieniu `Near` |
-| Rewiring | ✗ | ✓ – przepina sąsiadów jeśli ścieżka przez `x_new` jest tańsza |
-| Asymptotyczna optymalność | ✗ | ✓ |
-| Śledzenie kosztu | ✗ | ✓ – każdy węzeł przechowuje koszt od korzenia |
-| Propagacja kosztów | ✗ | ✓ – BFS po potomkach przepiętego węzła |
+| Rewiring | Nie | Tak – przepina sąsiadów jeśli ścieżka przez `x_new` jest tańsza |
+| Asymptotyczna optymalność | Nie | Tak |
+| Śledzenie kosztu | Nie | Tak – każdy węzeł przechowuje koszt od korzenia |
+| Propagacja kosztów | Nie | Tak – BFS po potomkach przepiętego węzła |
 
 ### Mapowanie kroków algorytmu na kod
 
-| Krok algorytmu | Funkcja | Szczegóły implementacji |
+| Ppseudokod | Funkcja | Implementacja |
 |---|---|---|
 | `SampleFree` | `sampleFree()` | Losuje `(x,y)` z obszaru costmapy metodą odrzucania (pomija komórki z kosztem ≥ `LETHAL_OBSTACLE`). Z prawdopodobieństwem `goal_bias` zwraca bezpośrednio punkt celu |
 | `Nearest` | `nearest()` | Liniowe przeszukiwanie O(n) po kwadracie odległości euklidesowej |
