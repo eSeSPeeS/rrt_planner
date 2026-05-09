@@ -1,54 +1,63 @@
 # rrt_planner
 
-RRT (**Rapidly-exploring Random Tree**) global planner plugin for **Nav2** (ROS 2).
+RRT* (**Rapidly-exploring Random Tree\***) globalny planer ścieżki dla **Nav2** w ROS 2
 
-Implements **Algorithm 3** verbatim:
+Implementacja **algorytmu** opisanego pseudokodem:
 
 ```
-V ← {x_init};  E ← ∅
-for i = 1, …, n do
-    x_rand    ← SampleFree_i
-    x_nearest ← Nearest(G=(V,E), x_rand)
-    x_new     ← Steer(x_nearest, x_rand)
-    if ObstacleFree(x_nearest, x_new) then
-        V ← V ∪ {x_new};  E ← E ∪ {(x_nearest, x_new)}
-return G = (V, E)
+1 V ← {xinit}; E ← ∅;
+2 for i = 1, . . . , n do
+3   xrand ← SampleFreei;
+4   xnearest ← Nearest(G = (V, E), xrand);
+5   xnew ← Steer(xnearest, xrand) ;
+6   if ObtacleFree(xnearest, xnew) then
+7      Xnear ← Near(G = (V, E), xnew, min{γRRT∗ (log(card (V ))/ card (V ))1/d, η}) ;
+8      V ← V ∪ {xnew};
+9      xmin ← xnearest; cmin ← Cost(xnearest) + c(Line(xnearest, xnew));
+10     foreach xnear ∈ Xnear do // Connect along a minimum-cost path
+11         if CollisionFree(xnear, xnew) ∧ Cost(xnear) + c(Line(xnear, xnew)) < cmin then
+12         xmin ← xnear; cmin ← Cost(xnear) + c(Line(xnear, xnew))
+13     E ← E ∪ {(xmin, xnew)};
+14     foreach xnear ∈ Xnear do // Rewire the tree
+15         if CollisionFree(xnew, xnear) ∧ Cost(xnew) + c(Line(xnew, xnear)) < Cost(xnear) then
+           xparent ← Parent(xnear);
+16         E ← (E \ {(xparent, xnear)}) ∪ {(xnew, xnear)}
+17 return G = (V, E);
 ```
 
 ---
 
-## Package layout
+## Struktura paczki
 
 ```
 rrt_planner/
 ├── include/rrt_planner/
-│   └── rrt_planner.hpp      # Plugin class declaration
+│   └── rrt_planner.hpp      # Plik nagłówkowy klasy
 ├── src/
-│   └── rrt_planner.cpp      # Full RRT implementation
+│   └── rrt_planner.cpp      # Pełna implementacja RRT*
 ├── CMakeLists.txt
 ├── package.xml
-├── plugins.xml               # pluginlib descriptor
-└── nav2_params.yaml          # Example Nav2 parameter snippet
+├── plugins.xml              
+└── nav2_params.yaml         # Plik z parametrami planera
 ```
 
 ---
 
-## Build
+## Uruchomienie
 
 ```bash
-# Place the package in your ROS 2 workspace
-cp -r rrt_planner ~/ros2_ws/src/
-
+# Umieść paczkę w raz z plikiem start.sh w swoim ROS 2 workspace
 cd ~/ros2_ws
-colcon build --packages-select rrt_planner --symlink-install
-source install/setup.bash
+./start.sh # włączenie z budowaniem paczkie
+./start.sh --no-build # włączenie bez budowania paczki
+
+# W przypadku problemów z uruchomieniam paczki (nie włącza się RViZ/Gazebo) można spróbować przed wykonaniem pliki start.sh wykonać linię poleceń:
+# pkill -9 -f gazebo; pkill -9 -f gz; pkill -9 -f ros2; pkill -9 -f rviz
 ```
 
 ---
 
-## Configure Nav2
-
-Add the snippet from `nav2_params.yaml` to your Nav2 configuration:
+## Konfiguracja parametrów Nav2
 
 ```yaml
 planner_server:
@@ -65,19 +74,19 @@ planner_server:
 
 ---
 
-## Parameters
+## Parametry
 
-| Parameter              | Type   | Default | Description |
-|------------------------|--------|---------|-------------|
-| `max_iterations`       | int    | 5000    | Max RRT expansions before failure |
-| `step_size`            | double | 0.05 m  | Max edge length (Steer distance) |
-| `goal_tolerance`       | double | 0.15 m  | Distance to goal considered "reached" |
-| `goal_bias`            | double | 0.10    | Probability of sampling the goal directly |
-| `collision_check_step` | double | 0.02 m  | Sampling density along each new edge for collision checking |
+| Parametr               | Typ    | Domyślnie | Opis        |
+|------------------------|--------|-----------|-------------|
+| `max_iterations`       | int    | 5000      | Max RRT expansions before failure |
+| `step_size`            | double | 0.05 m    | Max edge length (Steer distance) |
+| `goal_tolerance`       | double | 0.15 m    | Distance to goal considered "reached" |
+| `goal_bias`            | double | 0.10      | Probability of sampling the goal directly |
+| `collision_check_step` | double | 0.02 m    | Sampling density along each new edge for collision checking |
 
 ---
 
-## Algorithm details
+## Szczegóły algorytmu
 
 | Step | Function | Implementation |
 |------|----------|----------------|
@@ -87,10 +96,3 @@ planner_server:
 | `ObstacleFree` | `obstacleFree()` | Dense walk at `collision_check_step` resolution; checks `nav2_costmap_2d::LETHAL_OBSTACLE` |
 | Path extraction | `tracePath()` | Follows `parent_idx` pointers from goal node to root, then reverses |
 
----
-
-## Limitations & extensions
-
-- **No path smoothing** – the raw RRT tree edges are returned. Add a post-processing step (e.g. shortcutting) for smoother robot motion.
-- **O(n) Nearest** – acceptable for thousands of nodes; replace with a kd-tree for very large maps.
-- **No rewiring** – this is plain RRT, not RRT*. If asymptotic optimality is needed, upgrade to RRT*.
