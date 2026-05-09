@@ -162,10 +162,10 @@ Pomiary przeprowadzono na mapie TurtleBot3 w RViZ, dla tego samego punktu starto
 |---|---|
 | 1529.2 ms | 4.470 m |
 
-### Porównanie zbiorcze
+### Porównanie czasów i długości
 
 | Planer | Śr. czas (ostateczny) | Śr. długość (ostateczna) |
-|---|---|---|---|---|
+|---|---|---|
 | RRT\* (r=0.40 m) | 105.1 ms | 3.861 m |
 | RRT\* (r=0.20 m) | 181.8 ms | 3.906 m | 
 | NavFn (domyślny) | 1529.2 ms | 4.470 m |
