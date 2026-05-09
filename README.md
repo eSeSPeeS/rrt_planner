@@ -69,7 +69,7 @@ Skrypt `start.sh` automatycznie wykrywa swoje położenie na dysku jako katalog 
 
 | Parametr | Typ | Domyślnie | Opis |
 |---|---|---|---|
-| `max_iterations` | int | 5000 | Maksymalna liczba iteracji (rozszerzeń drzewa) w jednym wywołaniu `createPlan()`. Jeśli cel nie zostanie znaleziony, planowanie jest kontynuowane w kolejnym wywołaniu z tym samym drzewem |
+| `max_iterations` | int | 5000 | Maksymalna liczba iteracji (rozszerzeń drzewa) w jednym wywołaniu `createPlan()` |
 | `step_size` | double | 0.07 m | Maksymalna długość krawędzi w jednej iteracji (długość kroku funkcji `Steer`) |
 | `goal_tolerance` | double | 0.15 m | Odległość od celu uznawana za jego osiągnięcie |
 | `goal_bias` | double | 0.10 | Prawdopodobieństwo [0–1] wylosowania punktu dokładnie w miejscu celu zamiast losowego punktu mapy. Przyspiesza zbieżność |
