@@ -76,7 +76,7 @@ Skrypt `start.sh` automatycznie wykrywa swoje położenie na dysku jako katalog 
 | `collision_check_step` | double | 0.02 m | Rozdzielczość próbkowania wzdłuż każdej nowej krawędzi przy sprawdzaniu kolizji. Musi być ≤ `step_size` |
 | `gamma_rrt_star` | double | 5.0 | Stała γ we wzorze na promień sąsiedztwa `Near`: `r = γ · √(log(n)/n)`. Większa wartość = szersze sąsiedztwo = lepsza optymalizacja, ale wolniejsze iteracje. Ograniczenie miękkie na promień sąsiedztwa. |
 | `max_near_radius` | double | 0.40 m | Twarde górne ograniczenie promienia sąsiedztwa `Near`.e |
-| `post_goal_iterations` | int | 2000 | Liczba dodatkowych iteracji RRT\* wykonywanych **po** pierwszym znalezieniu celu. W tym czasie algorytm kontynuuje rewiring, szukając lepszej ścieżki. Po ich zakończeniu ścieżka zostaje zamrożona i robot rusza. |
+| `post_goal_iterations` | int | 2000 | Liczba dodatkowych iteracji RRT\* wykonywanych **po** pierwszym znalezieniu celu. W tym czasie algorytm kontynuuje przepinanie drzewa, szukając lepszej ścieżki. Po ich zakończeniu ścieżka zostaje zamrożona i robot rusza. |
 
 ### Wizualizacja RRT\* w RViZ
 
@@ -102,7 +102,7 @@ Drzewo pojawia się po zadaniu pierwszego celu.
 | Kolor | Co pokazuje |
 |-------|-------------|
 | 🔵 Niebieski | Pełne drzewo RRT\* (wszystkie węzły i krawędzie) |
-| 🔴 Czerwony | Aktualnie najlepsza ścieżka od startu do celu (aktualizuje się podczas rewiringu) |
+| 🔴 Czerwony | Aktualnie najlepsza ścieżka od startu do celu (aktualizuje się podczas przepinania drzewa) |
 
 ---
 
@@ -132,9 +132,4 @@ Drzewo pojawia się po zadaniu pierwszego celu.
 | Propagacja kosztów | `propagateCosts()` | Iteracyjny BFS w dół drzewa od przepiętego węzła. Aktualizuje koszty wszystkich potomków, w tym węzła celu – bez tego rewiring głębszych węzłów nie wpływałby na koszt ścieżki do celu |
 | Ekstrakcja ścieżki | `tracePath()` | Podąża po wskaźnikach `parent_idx` od węzła celu do korzenia, odwraca kolejność i ustawia orientację każdej pozy w kierunku następnego punktu |
 
-Wywołania 2, 3, … (robot jedzie, ten sam cel)
-  → planning_done == true → natychmiastowy zwrot ścieżki z cache
-  → drzewo NIE rośnie
-
-Nowy cel → pełny reset → Faza 1 od nowa
 ```
