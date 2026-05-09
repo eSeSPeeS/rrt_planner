@@ -136,11 +136,11 @@ Drzewo pojawia się po zadaniu pierwszego celu.
 
 ## Porównanie RRT\* z domyślnym planerem Nav2
 
-Pomiary przeprowadzono na mapie TurtleBot3 w Gazebo, dla tego samego punktu startowego i celu oddalonego o ~4–5 m. Parametry dla RRT\*: `max_iterations=5000`, `post_goal_iterations=10000`, `step_size=0.07`, `viz_publish_every_n=0`, `viz_step_delay_ms=0`.
+Pomiary przeprowadzono na mapie TurtleBot3 w RViZ, dla tego samego punktu startowego i celu oddalonego o ~4–5 m. Parametry dla RRT\*: `max_iterations=20000`, `post_goal_iterations=10000`, `step_size=0.07`, `viz_publish_every_n=0`, `viz_step_delay_ms=0`.
 
 ### Wyniki pomiarów
 
-#### RRT\* (`max_near_radius=0.40 m`) — 3 przebiegi
+#### RRT\* (`max_near_radius=0.40 m`) — 4 przebiegi
 
 | | Pierwsza znaleziona ścieżka | Ostateczna ścieżka (~10000 iter po celu) |
 |---|---|---|
@@ -164,15 +164,15 @@ Pomiary przeprowadzono na mapie TurtleBot3 w Gazebo, dla tego samego punktu star
 
 ### Porównanie zbiorcze
 
-| Planer | Śr. czas (ostateczny) | Śr. długość (ostateczna) | vs NavFn (długość) | vs NavFn (czas) |
+| Planer | Śr. czas (ostateczny) | Śr. długość (ostateczna) |
 |---|---|---|---|---|
-| RRT\* (r=0.40 m) | 105.1 ms | 3.861 m | −13.6% | ~15× szybszy |
-| RRT\* (r=0.20 m) | 181.8 ms | 3.906 m | −12.6% | ~8× szybszy |
-| NavFn (domyślny) | 1529.2 ms | 4.470 m | — | — |
+| RRT\* (r=0.40 m) | 105.1 ms | 3.861 m |
+| RRT\* (r=0.20 m) | 181.8 ms | 3.906 m | 
+| NavFn (domyślny) | 1529.2 ms | 4.470 m |
 
 ### Wpływ limitu iteracji na wynik
 
-Poniżej porównanie jakości ścieżki przy sztucznym ograniczeniu do ~2500 iteracji po znalezieniu celu (symulacja krótszego planowania):
+Poniżej porównanie jakości ścieżki przy ustawieniu ~2500 iteracji po znalezieniu celu (symulacja krótszego planowania):
 
 | Planer | Śr. czas przy ~2500 iter | Śr. długość przy ~2500 iter |
 |---|---|---|
@@ -184,7 +184,7 @@ Poniżej porównanie jakości ścieżki przy sztucznym ograniczeniu do ~2500 ite
 
 **Czas planowania.** Oba warianty RRT\* są znacznie szybsze od NavFn — wariant z `r=0.40 m` jest około **15× szybszy** (105 ms vs 1529 ms), a wariant z `r=0.20 m` około **8× szybszy** (182 ms vs 1529 ms). Wynika to z losowej natury RRT\* — algorytm nie przeszukuje całej siatki kosztów, lecz eksploruje przestrzeń próbkując losowo, co pozwala na szybkie znalezienie i optymalizację ścieżki bez konieczności odwiedzenia każdej komórki mapy.
 
-**Jakość ścieżki.** Oba warianty RRT\* po pełnej fazie rewiringu generują ścieżki krótsze od NavFn — o 13.6% przy `r=0.40 m` i o 12.6% przy `r=0.20 m`. NavFn jako algorytm oparty na siatce jest ograniczony przez rozdzielczość costmapy i kierunki dozwolone przez siatkę, co powoduje powstawanie charakterystycznych "schodkowych" ścieżek dłuższych niż geometrycznie minimalna. RRT\*, operując w przestrzeni ciągłej, może wyznaczać krawędzie w dowolnym kierunku, co skutkuje krótszymi, bardziej naturalnymi ścieżkami.
+**Długość ścieżki.** Oba warianty RRT\* po pełnej fazie rewiringu generują ścieżki krótsze od NavFn — o 13.6% przy `r=0.40 m` i o 12.6% przy `r=0.20 m`. NavFn jako algorytm oparty na siatce jest ograniczony przez rozdzielczość costmapy i kierunki dozwolone przez siatkę, co powoduje powstawanie charakterystycznych "schodkowych" ścieżek dłuższych niż geometrycznie minimalna. RRT\*, operując w przestrzeni ciągłej, może wyznaczać krawędzie w dowolnym kierunku, co skutkuje krótszymi, bardziej naturalnymi ścieżkami.
 
 **Wpływ promienia sąsiedztwa `max_near_radius` na zbieżność.** Przy `r=0.40 m` algorytm osiąga lepszą ścieżkę końcową (3.861 m vs 3.906 m) w krótszym czasie (105 ms vs 182 ms), bo każde przepięcie obejmuje szerszy obszar i może skrócić ścieżkę o większy odcinek. Przy `r=0.20 m` każde pojedyncze rewirowanie daje mniejszą poprawę, więc algorytm musi wykonać więcej operacji by osiągnąć podobny efekt — stąd wolniejsza zbieżność i dłuższy czas planowania. Widać to wyraźnie w danych: przy `r=0.20 m` przepinania trwają do iteracji ~9700, podczas gdy przy `r=0.40 m` zbieżność następuje wcześniej.
 
