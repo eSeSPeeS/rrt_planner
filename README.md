@@ -120,7 +120,7 @@ Drzewo pojawia się po zadaniu pierwszego celu.
 
 ### Mapowanie kroków algorytmu na kod
 
-| Ppseudokod | Funkcja | Implementacja |
+| Pseudokod | Funkcja | Implementacja |
 |---|---|---|
 | `SampleFree` | `sampleFree()` | Losuje `(x,y)` z obszaru costmapy metodą odrzucania (pomija komórki z kosztem ≥ `LETHAL_OBSTACLE`). Z prawdopodobieństwem `goal_bias` zwraca bezpośrednio punkt celu |
 | `Nearest` | `nearest()` | Liniowe przeszukiwanie O(n) po kwadracie odległości euklidesowej |
