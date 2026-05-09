@@ -30,9 +30,9 @@ Implementacja **algorytmu** opisanego pseudokodem:
 ## Struktura paczki
 
 ```
-ros2_ws
+ros2_ws/
 ├── start.sh                         # Skrypt uruchamiający symulację
-└── src
+└── src/
     └── rrt_planner/
         ├── include/rrt_planner/
         │   └── rrt_planner.hpp      # Plik nagłówkowy klasy
