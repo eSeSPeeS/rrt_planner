@@ -30,18 +30,17 @@ Implementacja **algorytmu** opisanego pseudokodem:
 ## Struktura paczki
 
 ```
-ros2_ws/
-├── start.sh                         # Skrypt uruchamiający symulację
-└── src/
-    └── rrt_planner/
-        ├── include/rrt_planner/
-        │   └── rrt_planner.hpp      # Plik nagłówkowy klasy
-        ├── src/
-        │   └── rrt_planner.cpp      # Pełna implementacja RRT*
-        ├── CMakeLists.txt
-        ├── package.xml
-        ├── plugins.xml
-        └── nav2_params_rrt.yaml     # Plik z parametrami Nav2
+src/
+└── rrt_planner/
+    ├── include/rrt_planner/
+    │   └── rrt_planner.hpp      # Plik nagłówkowy klasy
+    ├── src/
+    │   └── rrt_planner.cpp      # Pełna implementacja RRT*
+    ├── CMakeLists.txt
+    ├── package.xml
+    ├── plugins.xml
+    ├── nav2_params_rrt.yaml     # Plik z parametrami Nav2
+    └── start.sh                 # Skrypt uruchamiający symulację
 ```
 
 ---
@@ -49,8 +48,8 @@ ros2_ws/
 ## Uruchomienie
 
 ```bash
-# Umieść paczkę wraz z plikiem start.sh w swoim ROS 2 workspace
-cd ~/ros2_ws
+# Umieść paczkę w swoim ROS 2 workspace
+cd ~/ros2_ws/src/rrt_planner
 ./start.sh            # uruchomienie z budowaniem paczki
 ./start.sh --no-build # uruchomienie bez budowania paczki (brak zmian)
 
