@@ -136,8 +136,8 @@ Drzewo pojawia się po zadaniu pierwszego celu.
 
 <table>
 <tr>
-    <th style="text-align: center; font-weight: bold; padding: 10px;">RRT*</th>
     <th style="text-align: center; font-weight: bold; padding: 10px;">Domyślny planer</th>
+    <th style="text-align: center; font-weight: bold; padding: 10px;">RRT*</th>
   </tr>
     
   <tr>
@@ -204,6 +204,10 @@ Poniżej porównanie jakości ścieżki przy ustawieniu ~2500 iteracji po znalez
 | RRT\* (r=0.40 m) | **9.50 ms** | 4.727 m |
 | RRT\* (r=0.20 m) | 11.51 ms | **4.192 m** |
 | NavFn (domyślny) | 1529.2 ms | 4.470 m |
+
+### Wpływ parametru max_near_radius
+
+Parametr max_near_radius określa maksymalne twarde ograniczenie na długoś propogacji krawdzi drzewa. Ustawienie dużej wartośći powoduje brak ograniczenia twardego (mjedynym ograniczeniem staje się parametr dynamiczny $\gamma$ (który automatycznie zmniejsza promień poszukiwań wraz ze wzrostem liczby węzłów w drzewie). Na początku działania algorytmu krok jest jednak niemal nieograniczony. Kiedy promień jest mały, algorytm ma narzucony "krótki krok". Nowe wierzchołki mogą być dodawane tylko bardzo blisko istniejących węzłów drzewa, przez co jest ono bardzo gęste.
 
 ### Wnioski
 
