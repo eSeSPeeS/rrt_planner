@@ -135,6 +135,11 @@ Drzewo pojawia się po zadaniu pierwszego celu.
 ## Porównanie RRT\* z domyślnym planerem Nav2
 
 <table>
+<tr>
+    <th style="text-align: center; font-weight: bold; padding: 10px;">RRT*</th>
+    <th style="text-align: center; font-weight: bold; padding: 10px;">Domyślny planer</th>
+  </tr>
+    
   <tr>
     <td>
       <img src="https://github.com/user-attachments/assets/28e88209-d783-4a3c-9d56-bbe28039747c" width="410" alt="image" />
