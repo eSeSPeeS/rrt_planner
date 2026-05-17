@@ -165,7 +165,7 @@ Pomiary przeprowadzono na mapie TurtleBot3 w RViZ, dla tego samego punktu starto
 
 | Planer | Śr. czas (ostateczny) | Śr. długość (ostateczna) |
 |---|---|---|
-| RRT\* (r=0.40 m) | 105.1 ms | 3.861 m |
+| RRT\* (r=0.40 m) | **105.1 ms** | **3.861 m** |
 | RRT\* (r=0.20 m) | 181.8 ms | 3.906 m | 
 | NavFn (domyślny) | 1529.2 ms | 4.470 m |
 
@@ -175,8 +175,8 @@ Poniżej porównanie jakości ścieżki przy ustawieniu ~2500 iteracji po znalez
 
 | Planer | Śr. czas przy ~2500 iter | Śr. długość przy ~2500 iter |
 |---|---|---|
-| RRT\* (r=0.40 m) | 9.50 ms | 4.727 m |
-| RRT\* (r=0.20 m) | 11.51 ms | 4.192 m |
+| RRT\* (r=0.40 m) | **9.50 ms** | 4.727 m |
+| RRT\* (r=0.20 m) | 11.51 ms | **4.192 m** |
 | NavFn (domyślny) | 1529.2 ms | 4.470 m |
 
 ### Wnioski
