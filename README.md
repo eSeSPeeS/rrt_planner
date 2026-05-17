@@ -134,6 +134,10 @@ Drzewo pojawia się po zadaniu pierwszego celu.
 
 ## Porównanie RRT\* z domyślnym planerem Nav2
 
+Świat w gazebo:
+
+<img width="450" alt="image" src="https://github.com/user-attachments/assets/b1436c28-8ab0-48a7-9f47-f267dee2a07b" />
+
 <table>
 <tr>
     <th style="text-align: center; font-weight: bold; padding: 10px;">Domyślny planer</th>
@@ -160,6 +164,20 @@ Drzewo pojawia się po zadaniu pierwszego celu.
     </td>
   </tr>
 </table>
+
+## Inne środowisko (dom)
+
+<table>
+  <tr>
+    <td>
+      <img width="410" alt="image" src="https://github.com/user-attachments/assets/429bd4e9-59dd-4dfd-aca2-2b32e962d2f8" />
+    </td>
+    <td>
+      <img width="418" alt="image" src="https://github.com/user-attachments/assets/3300833f-7aad-4b92-8fb5-2ec13004138e" />
+    </td>
+  </tr>
+</table>
+
 
 Pomiary przeprowadzono na mapie TurtleBot3 w RViZ, dla tego samego punktu startowego i celu oddalonego o ~4–5 m. Parametry dla RRT\*: `max_iterations=20000`, `post_goal_iterations=10000`, `step_size=0.07`, `viz_publish_every_n=0`, `viz_step_delay_ms=0`.
 
