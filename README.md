@@ -1,6 +1,28 @@
 # rrt_planner
-
 RRT\* (**Rapidly-exploring Random Tree\***) globalny planer ścieżki dla **Nav2** w ROS 2
+
+## Domyślny planer vs Algorytm RRT*
+<table>
+  <tr>
+    <td>
+      <img src="https://github.com/user-attachments/assets/28e88209-d783-4a3c-9d56-bbe28039747c" width="410" alt="image" />
+    </td>
+    <td>
+      <img src="https://github.com/user-attachments/assets/283a0427-768f-4f5c-8d76-87cf471c0638" width="418" alt="image" />
+    </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td>
+      <img src="https://github.com/user-attachments/assets/cb2b8887-59e5-4eef-a137-6985b5f4afef" width="418" alt="image" />
+    </td>
+    <td>
+      <img src="https://github.com/user-attachments/assets/80de9186-df60-4e5f-bac5-9b3b162b8f77" width="410" alt="image" />
+    </td>
+  </tr>
+</table>
 
 Implementacja **algorytmu** opisanego pseudokodem:
 
